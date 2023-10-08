@@ -21,7 +21,7 @@ const (
 )
 
 func main() {
-	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelDebug}))
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{Level: slog.LevelInfo}))
 	slog.SetDefault(logger)
 
 	s := gocron.NewScheduler(time.Local)
@@ -81,8 +81,6 @@ func main() {
 	router := gin.Default()
 	router.GET("/login", app.HandleLoginWebhook)
 	router.POST("/webhook/:chatId", app.HandleCalendarWebhook)
-
-	router.POST("/webhook", app.HandleCalendarWebhook)
 
 	// TODO graceful shutdown
 	go bot.RunUpdatesHandler()
