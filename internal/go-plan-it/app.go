@@ -302,7 +302,7 @@ func (a *App) HandleNewEventCommandResponse(c *tgbot.Context) {
 	}
 
 	start := carbon.Parse(resp.Date)
-	end := start.AddMinutes(30)
+	end := start.AddMinutes(15)
 	ctx := context.Background()
 
 	e := &gCalendar.Event{
@@ -344,7 +344,7 @@ func (a *App) SendMorningAgenda(c *tgbot.Context) {
 
 	for _, chat := range chats {
 		ctx := context.Background()
-		start := carbon.Now().StartOfDay().ToRfc3339String()
+		start := carbon.Now().SubDays(7).ToRfc3339String()
 		end := carbon.Now().EndOfDay().ToRfc3339String()
 
 		eventsList, err := a.calendar.GetEventsList(ctx, *chat.CalendarId, start, end, 100, chat.Token)
